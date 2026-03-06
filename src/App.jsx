@@ -1,5 +1,28 @@
 import { useState } from "react";
 
+// Color palette — warm honey almond brown
+const C = {
+  primary: "#8B5E3C",      // warm brown
+  primaryDark: "#6B4423",  // darker brown
+  primaryLight: "#F5EDE3", // very light cream
+  primaryMid: "#D4A574",   // mid warm tan
+  accent: "#C4853A",       // honey amber
+  bg: "linear-gradient(160deg, #FDF6EE 0%, #FAF7F2 60%, #FDF3E7 100%)",
+  tagBg: "#F5EDE3",
+  tagText: "#6B4423",
+  selBorder: "#8B5E3C",
+  selBg: "#F5EDE3",
+  selText: "#6B4423",
+  dot: "#C4853A",
+  dotInactive: "#EDD9C4",
+  btnBg: "#8B5E3C",
+  progressBar: "linear-gradient(90deg, #8B5E3C, #C4853A)",
+  bannerBg: "linear-gradient(90deg, #6B4423, #8B5E3C)",
+  introBg: "linear-gradient(135deg, #FDF6EE, #F5EDE3)",
+  introBorder: "#DDB899",
+  introText: "#6B4423",
+};
+
 const PAGES = [
   {
     id: "about",
@@ -56,7 +79,7 @@ const PAGES = [
     id: "baseline",
     title: "Baseline",
     subtitle: "One bite. Every day.",
-    intro: "Baseline is a 25g daily bite — made with almonds, dates, flax & magnesium — that replaces your entire supplement stack. Under 100 calories. One step. Every day.",
+    intro: "Baseline is an 85-calorie daily bite packed with 20 essential vitamins and minerals, 5g of fiber, and 690mg of plant omega-3. Made with dates, almond butter, flax, and honey. One bite. Every day.",
     questions: [
       {
         id: "concept_interest",
@@ -82,6 +105,32 @@ const PAGES = [
 ];
 
 const TOTAL = PAGES.length;
+
+// BASE— logo component matching the brand
+function BaselineLogo({ size = "md" }) {
+  const fontSize = size === "lg" ? "2rem" : "1rem";
+  const lineWidth = size === "lg" ? 48 : 24;
+  const lineHeight = size === "lg" ? 3 : 1.5;
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 0 }}>
+      <span style={{
+        fontFamily: "'Georgia', 'Times New Roman', serif",
+        fontSize,
+        fontWeight: 700,
+        color: C.primaryDark,
+        letterSpacing: "0.05em",
+        lineHeight: 1,
+      }}>BASE</span>
+      <div style={{
+        width: lineWidth,
+        height: lineHeight,
+        background: C.primaryDark,
+        marginBottom: size === "lg" ? "0.2rem" : "0.05rem",
+        marginLeft: 1,
+      }} />
+    </div>
+  );
+}
 
 export default function BaselineSurvey() {
   const [page, setPage] = useState(0);
@@ -117,20 +166,22 @@ export default function BaselineSurvey() {
     if (page > 0) setPage(p => p - 1);
   }
 
-  const scaleColors = ["#d1d5db", "#93c5fd", "#60a5fa", "#16a34a"];
+  const scaleColors = ["#d1d5db", "#DDB899", "#C4853A", "#8B5E3C"];
   const wouldBuy = answers["would_buy"];
   const isInterestedBuyer = wouldBuy === "Yes, sign me up" || wouldBuy === "Probably yes";
 
   if (submitted) {
     return (
-      <div style={styles.shell}>
+      <div style={{ ...styles.shell, background: C.bg }}>
         <div style={styles.topBar}>
-          <div style={styles.logo}>BASELINE</div>
+          <BaselineLogo />
         </div>
         <div style={styles.card}>
           <div style={{ textAlign: "center", padding: "3rem 1.5rem" }}>
-            <div style={{ fontSize: "3.5rem", marginBottom: "1rem" }}>🌱</div>
-            <h2 style={styles.thankYouTitle}>
+            <div style={{ marginBottom: "1.5rem" }}>
+              <BaselineLogo size="lg" />
+            </div>
+            <h2 style={{ ...styles.thankYouTitle, color: C.primaryDark }}>
               {isInterestedBuyer ? "You're in. Welcome to Baseline." : "Thank you."}
             </h2>
             <p style={styles.thankYouBody}>
@@ -138,13 +189,16 @@ export default function BaselineSurvey() {
                 ? "You have founder-level early access. You'll be the first to know when we launch — and first in line for free samples."
                 : "Your feedback directly shapes Baseline. We really appreciate it."}
             </p>
-            <div style={styles.tag}>Baseline — One Bite. Every Day.</div>
+            <div style={{ ...styles.tag, background: C.tagBg, color: C.tagText }}>
+              Baseline — One Bite. Every Day.
+            </div>
             {isInterestedBuyer && (
               <div style={{ marginTop: "2rem" }}>
                 <p style={{ color: "#374151", fontSize: "0.9rem", marginBottom: "1rem", fontFamily: "sans-serif" }}>
                   Want to see what we're building?
                 </p>
-                <a href="https://baselinebite.com" target="_blank" rel="noopener noreferrer" style={styles.ctaButton}>
+                <a href="https://baselinebite.com" target="_blank" rel="noopener noreferrer"
+                  style={{ ...styles.ctaButton, background: C.btnBg }}>
                   Visit baselinebite.com →
                 </a>
               </div>
@@ -159,30 +213,32 @@ export default function BaselineSurvey() {
   }
 
   return (
-    <div style={styles.shell}>
+    <div style={{ ...styles.shell, background: C.bg }}>
       <div style={styles.topBar}>
-        <div style={styles.logo}>BASELINE</div>
+        <BaselineLogo />
         <div style={styles.stepLabel}>{page + 1} / {TOTAL}</div>
       </div>
 
       <div style={styles.progressTrack}>
-        <div style={{ ...styles.progressFill, width: `${progress}%` }} />
+        <div style={{ ...styles.progressFill, width: `${progress}%`, background: C.progressBar }} />
       </div>
 
       {page === 0 && (
-        <div style={styles.giveawayBanner}>
+        <div style={{ ...styles.giveawayBanner, background: C.bannerBg }}>
           🎉 2 minutes · chance to <strong>win $200</strong>
         </div>
       )}
 
       <div style={styles.card}>
         <div style={{ marginBottom: "1.5rem" }}>
-          <div style={styles.sectionTag}>{current.title}</div>
+          <div style={{ ...styles.sectionTag, background: C.tagBg, color: C.tagText }}>
+            {current.title}
+          </div>
           <p style={styles.pageSubtitle}>{current.subtitle}</p>
         </div>
 
         {current.intro && (
-          <div style={styles.introBanner}>
+          <div style={{ ...styles.introBanner, background: C.introBg, borderColor: C.introBorder, color: C.introText }}>
             <p style={{ margin: 0, fontSize: "0.9rem", lineHeight: 1.7 }}>{current.intro}</p>
           </div>
         )}
@@ -199,8 +255,11 @@ export default function BaselineSurvey() {
                     const sel = answers[q.id] === opt;
                     return (
                       <button key={opt} onClick={() => handleSingle(q.id, opt)}
-                        style={{ ...styles.optionBtn, ...(sel ? styles.optionBtnSel : {}) }}>
-                        {sel && <span style={styles.checkDot} />}
+                        style={{
+                          ...styles.optionBtn,
+                          ...(sel ? { border: `1.5px solid ${C.selBorder}`, background: C.selBg, color: C.selText, fontWeight: 600 } : {}),
+                        }}>
+                        {sel && <span style={{ ...styles.checkDot, background: C.primary }} />}
                         {opt}
                       </button>
                     );
@@ -215,8 +274,11 @@ export default function BaselineSurvey() {
                       const sel = (answers[q.id] || []).includes(opt);
                       return (
                         <button key={opt} onClick={() => handleMulti(q.id, opt, q.max)}
-                          style={{ ...styles.optionBtn, ...(sel ? styles.optionBtnSel : {}) }}>
-                          {sel && <span style={styles.checkDot} />}
+                          style={{
+                            ...styles.optionBtn,
+                            ...(sel ? { border: `1.5px solid ${C.selBorder}`, background: C.selBg, color: C.selText, fontWeight: 600 } : {}),
+                          }}>
+                          {sel && <span style={{ ...styles.checkDot, background: C.primary }} />}
                           {opt}
                         </button>
                       );
@@ -247,13 +309,10 @@ export default function BaselineSurvey() {
               )}
 
               {q.type === "phone" && (
-                <input
-                  type="tel"
-                  placeholder={q.placeholder}
+                <input type="tel" placeholder={q.placeholder}
                   value={answers[q.id] || ""}
                   onChange={e => handleText(q.id, e.target.value)}
-                  style={styles.input}
-                />
+                  style={{ ...styles.input, borderColor: "#e5e7eb" }} />
               )}
             </div>
           ))}
@@ -261,7 +320,7 @@ export default function BaselineSurvey() {
 
         <div style={styles.navRow}>
           {page > 0 && <button onClick={back} style={styles.backBtn}>← Back</button>}
-          <button onClick={next} style={styles.nextBtn}>
+          <button onClick={next} style={{ ...styles.nextBtn, background: C.btnBg }}>
             {page === TOTAL - 1 ? "Submit →" : "Continue →"}
           </button>
         </div>
@@ -269,7 +328,7 @@ export default function BaselineSurvey() {
 
       <div style={styles.dots}>
         {PAGES.map((_, i) => (
-          <div key={i} style={{ ...styles.dot, background: i === page ? "#16a34a" : "#d1fae5" }} />
+          <div key={i} style={{ ...styles.dot, background: i === page ? C.dot : C.dotInactive }} />
         ))}
       </div>
 
@@ -281,7 +340,6 @@ export default function BaselineSurvey() {
 const styles = {
   shell: {
     minHeight: "100vh",
-    background: "linear-gradient(160deg, #f0fdf4 0%, #fafaf9 60%, #f0f9ff 100%)",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -295,13 +353,6 @@ const styles = {
     justifyContent: "space-between",
     alignItems: "center",
     padding: "1.5rem 0 0.5rem",
-  },
-  logo: {
-    fontSize: "1rem",
-    fontWeight: 700,
-    letterSpacing: "0.2em",
-    color: "#166534",
-    fontFamily: "'Trebuchet MS', sans-serif",
   },
   stepLabel: {
     fontSize: "0.8rem",
@@ -319,14 +370,12 @@ const styles = {
   },
   progressFill: {
     height: "100%",
-    background: "linear-gradient(90deg, #16a34a, #4ade80)",
     borderRadius: 99,
     transition: "width 0.4s ease",
   },
   giveawayBanner: {
     width: "100%",
     maxWidth: 600,
-    background: "linear-gradient(90deg, #166534, #16a34a)",
     color: "#fff",
     textAlign: "center",
     fontSize: "0.85rem",
@@ -341,13 +390,11 @@ const styles = {
     background: "#fff",
     borderRadius: 20,
     padding: "2rem 2rem 1.5rem",
-    boxShadow: "0 4px 40px rgba(0,0,0,0.07)",
-    border: "1px solid #e5e7eb",
+    boxShadow: "0 4px 40px rgba(139,94,60,0.08)",
+    border: "1px solid #EDD9C4",
   },
   sectionTag: {
     display: "inline-block",
-    background: "#dcfce7",
-    color: "#166534",
     fontSize: "0.68rem",
     fontWeight: 700,
     letterSpacing: "0.12em",
@@ -364,12 +411,10 @@ const styles = {
     fontFamily: "sans-serif",
   },
   introBanner: {
-    background: "linear-gradient(135deg, #f0fdf4, #ecfdf5)",
-    border: "1px solid #bbf7d0",
+    border: "1px solid",
     borderRadius: 12,
     padding: "1rem 1.25rem",
     marginBottom: "1.5rem",
-    color: "#166534",
     fontFamily: "sans-serif",
   },
   qLabel: {
@@ -408,17 +453,10 @@ const styles = {
     fontFamily: "sans-serif",
     transition: "all 0.15s",
   },
-  optionBtnSel: {
-    border: "1.5px solid #16a34a",
-    background: "#f0fdf4",
-    color: "#166534",
-    fontWeight: 600,
-  },
   checkDot: {
     width: 7,
     height: 7,
     borderRadius: "50%",
-    background: "#16a34a",
     flexShrink: 0,
   },
   scaleRow: {
@@ -438,7 +476,7 @@ const styles = {
   input: {
     width: "100%",
     borderRadius: 10,
-    border: "1.5px solid #e5e7eb",
+    border: "1.5px solid",
     padding: "0.85rem",
     fontSize: "1rem",
     fontFamily: "sans-serif",
@@ -453,7 +491,7 @@ const styles = {
     alignItems: "center",
     marginTop: "2rem",
     paddingTop: "1.25rem",
-    borderTop: "1px solid #f3f4f6",
+    borderTop: "1px solid #F5EDE3",
   },
   backBtn: {
     background: "none",
@@ -464,7 +502,6 @@ const styles = {
     fontFamily: "sans-serif",
   },
   nextBtn: {
-    background: "#16a34a",
     color: "#fff",
     border: "none",
     borderRadius: 10,
@@ -488,8 +525,6 @@ const styles = {
   },
   tag: {
     display: "inline-block",
-    background: "#dcfce7",
-    color: "#166534",
     fontSize: "0.7rem",
     fontWeight: 700,
     letterSpacing: "0.12em",
@@ -502,7 +537,6 @@ const styles = {
     fontFamily: "sans-serif",
     fontSize: "1.8rem",
     fontWeight: 700,
-    color: "#111827",
     marginBottom: "0.75rem",
   },
   thankYouBody: {
@@ -515,7 +549,6 @@ const styles = {
   },
   ctaButton: {
     display: "inline-block",
-    background: "#16a34a",
     color: "#fff",
     padding: "0.85rem 2rem",
     borderRadius: 12,
