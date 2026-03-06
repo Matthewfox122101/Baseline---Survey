@@ -67,12 +67,14 @@ const TOTAL = PAGES.length;
 
 function BaselineLogo({ size = "md" }) {
   const fontSize = size === "lg" ? "2rem" : "1rem";
-  const lineWidth = size === "lg" ? 52 : 26;
-  const lineThickness = size === "lg" ? 3 : 2;
+  const lineLen = size === "lg" ? 40 : 20;
+  const lineH = size === "lg" ? 20 : 10;
   return (
-   <div style={{ display: "inline-flex", alignItems: "flex-end" }}>
-      <span style={{ fontFamily: "'Georgia','Times New Roman',serif", fontSize, fontWeight: 400, color: C.primaryDark, letterSpacing: "0.08em", lineHeight: 1 }}>BASE</span>
-      <div style={{ width: lineWidth, height: 1.5, background: C.primaryDark, marginLeft: 1, marginBottom: 2 }} />
+    <div style={{ display: "inline-flex", alignItems: "flex-end" }}>
+      <span style={{ fontFamily: "'Georgia','Times New Roman',serif", fontSize, fontWeight: 400, color: "#1a1a1a", letterSpacing: "0.08em", lineHeight: 1 }}>BASE</span>
+      <svg width={lineLen} height={lineH} style={{ marginLeft: 2, marginBottom: 2 }}>
+        <line x1="0" y1={lineH} x2={lineLen} y2="0" stroke="#1a1a1a" strokeWidth="1.5" />
+      </svg>
     </div>
   );
 }
