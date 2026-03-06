@@ -165,7 +165,7 @@ export default function BaselineSurvey() {
         </div>
         {current.intro && (
           <div style={{ ...S.introBanner, background: C.introBg, borderColor: C.introBorder, color: C.introText }}>
-            <p style={{ margin: 0, fontSize: "0.9rem", lineHeight: 1.7 }}>{current.intro}</p>
+            <p style={{ margin: 0, fontSize: "1.2rem", lineHeight: 1.7, fontWeight: 600 }}>{current.intro}</p>
           </div>
         )}
         <div style={{ display: "flex", flexDirection: "column", gap: "1.75rem" }}>
