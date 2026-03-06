@@ -70,9 +70,9 @@ function BaselineLogo({ size = "md" }) {
   const lineWidth = size === "lg" ? 52 : 26;
   const lineThickness = size === "lg" ? 3 : 2;
   return (
-    <div style={{ display: "inline-flex", alignItems: "flex-end" }}>
-      <span style={{ fontFamily: "'Georgia','Times New Roman',serif", fontSize, fontWeight: 700, color: C.primaryDark, letterSpacing: "0.05em", lineHeight: 1 }}>BASE</span>
-      <div style={{ width: lineWidth, height: lineThickness, background: C.primaryDark, marginLeft: 2 }} />
+   <div style={{ display: "inline-flex", alignItems: "flex-end" }}>
+      <span style={{ fontFamily: "'Georgia','Times New Roman',serif", fontSize, fontWeight: 400, color: C.primaryDark, letterSpacing: "0.08em", lineHeight: 1 }}>BASE</span>
+      <div style={{ width: lineWidth, height: 1.5, background: C.primaryDark, marginLeft: 1, marginBottom: 2 }} />
     </div>
   );
 }
